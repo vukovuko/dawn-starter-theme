@@ -252,6 +252,9 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+    {{ 'swiper-bundle.min.js' | asset_url | script_tag }}
 
     {%- unless settings.type_body_font.system? -%}
       {% comment %}theme-check-disable AssetPreload{% endcomment %}

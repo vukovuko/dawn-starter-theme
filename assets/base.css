@@ -3454,3 +3454,9 @@ details-disclosure > details {
     --border-offset: 0px; /* Prevent the border from growing on buttons when this effect is on. */
   }
 }
+
+.jdgm-prev-badge__text {
+  font-size: 14px;
+  line-height: 18px;
+  color: #61402E;
+}

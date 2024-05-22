@@ -1,0 +1,24 @@
+.product {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-top: 80px;
+}
+
+.product__gallery,
+.product__details {
+  max-width: 530px;
+}
+
+.product__image {
+  width: 100%;
+  height: auto;
+}
+
+.product__thumb {
+  padding: 4px;
+}
+
+.swiper-slide-thumb-active {
+  border: 1px solid #61402E;
+}

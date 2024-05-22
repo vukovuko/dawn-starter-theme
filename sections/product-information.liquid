@@ -1,0 +1,288 @@
+{{ 'section-product-information.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-slider.js' | asset_url }}" defer="defer"></script>
+
+{% assign product = product %}
+{% unless template contains 'product' %}
+  {% assign product = section.settings.product %}
+{% endunless %}
+
+<section
+  id="MainProduct-{{ section.id }}"
+  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  data-section="{{ section.id }}"
+>
+  <div class="product">
+    <div class="product__gallery">
+      <div class="swiper product__swiper-main">
+        <div class="swiper-wrapper">
+          {%- capture sizes -%}
+            (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | divided_by: desktop_columns | round }}px, (min-width: 990px) calc({{ media_width | times: 100 | divided_by: desktop_columns }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / {{ mobile_columns }} - 4rem)
+          {%- endcapture -%}
+          {%- if product.selected_or_first_available_variant.featured_media != null -%}
+            {{ product.title }}
+            {{ product.selected_or_first_available_variant.featured_media.src }}
+            {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
+            <div class="swiper-slide product__slide">
+              {{
+                featured_media.preview_image
+                | image_url: width: 1946
+                | image_tag:
+                  class: 'product__image',
+                  sizes: sizes,
+                  widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+              }}
+            </div>
+          {%- endif -%}
+          {%- for media in product.media -%}
+            {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
+              <div class="swiper-slide product__slide">
+                {{
+                  media.preview_image
+                  | image_url: width: 1946
+                  | image_tag:
+                    class: 'product__image',
+                    sizes: sizes,
+                    widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+                }}
+              </div>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+        <div class="swiper-button-next product__swiper-button-next"></div>
+        <div class="swiper-button-prev product__swiper-button-prev"></div>
+      </div>
+
+      <div class="swiper product__swiper product__swiper--thumbs">
+        <div class="swiper-wrapper product__swiper-wrapper">
+          {%- for media in product.media -%}
+            <div class="swiper-slide product__thumb">
+              {{
+                media.preview_image
+                | image_url: width: 1946
+                | image_tag:
+                  class: 'product__image product__thumb-image',
+                  sizes: sizes,
+                  widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+              }}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="product__details">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+          {%- when 'text' -%}
+            <p
+              class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              {{- block.settings.text -}}
+            </p>
+          {%- when 'title' -%}
+            <div class="product__title" {{ block.shopify_attributes }}>
+              <h1>{{ product.title | escape }}</h1>
+              <a href="{{ product.url }}" class="product__title">
+                <h2 class="h1">
+                  {{ product.title | escape }}
+                </h2>
+              </a>
+            </div>
+          {%- when 'price' -%}
+            <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+              {%- render 'price',
+                product: product,
+                use_variant: true,
+                show_badges: true,
+                price_class: 'price--large'
+              -%}
+            </div>
+            {%- if product.quantity_price_breaks_configured? -%}
+              <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
+                <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+              </div>
+            {%- endif -%}
+            <div class="product__tax caption rte">
+              {%- if cart.taxes_included -%}
+                {{ 'products.product.include_taxes' | t }}
+              {%- endif -%}
+              {%- if shop.shipping_policy.body != blank -%}
+                {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+              {%- endif -%}
+            </div>
+            <div {{ block.shopify_attributes }}>
+              {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+              {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                {{ form | payment_terms }}
+              {%- endform -%}
+            </div>
+          {%- when 'description' -%}
+            {%- if product.description != blank -%}
+              <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+                {{ product.description }}
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    {%- liquid
+      if product.selected_or_first_available_variant.featured_media
+        assign seo_media = product.selected_or_first_available_variant.featured_media
+      else
+        assign seo_media = product.featured_media
+      endif
+    -%}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "url": {{ request.origin | append: product.url | json }},
+        {% if seo_media -%}
+          "image": [
+            {{ seo_media | image_url: width: 1920 | prepend: "https:" | json }}
+          ],
+        {%- endif %}
+        "description": {{ product.description | strip_html | json }},
+        {% if product.selected_or_first_available_variant.sku != blank -%}
+          "sku": {{ product.selected_or_first_available_variant.sku | json }},
+        {%- endif %}
+        "brand": {
+          "@type": "Brand",
+          "name": {{ product.vendor | json }}
+        },
+        "offers": [
+          {%- for variant in product.variants -%}
+            {
+              "@type" : "Offer",
+              {%- if variant.sku != blank -%}
+                "sku": {{ variant.sku | json }},
+              {%- endif -%}
+              {%- if variant.barcode.size == 12 -%}
+                "gtin12": {{ variant.barcode }},
+              {%- endif -%}
+              {%- if variant.barcode.size == 13 -%}
+                "gtin13": {{ variant.barcode }},
+              {%- endif -%}
+              {%- if variant.barcode.size == 14 -%}
+                "gtin14": {{ variant.barcode }},
+              {%- endif -%}
+              "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+              "price" : {{ variant.price | divided_by: 100.00 | json }},
+              "priceCurrency" : {{ cart.currency.iso_code | json }},
+              "url" : {{ request.origin | append: variant.url | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product information",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select product",
+      "info": "For reusability of the section on pages that are not product pages."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "text",
+      "name": "t:sections.main-product.blocks.text.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Text block",
+          "label": "t:sections.main-product.blocks.text.settings.text.label"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "t:sections.main-product.blocks.text.settings.text_style.options__1.label"
+            },
+            {
+              "value": "subtitle",
+              "label": "t:sections.main-product.blocks.text.settings.text_style.options__2.label"
+            },
+            {
+              "value": "uppercase",
+              "label": "t:sections.main-product.blocks.text.settings.text_style.options__3.label"
+            }
+          ],
+          "default": "body",
+          "label": "t:sections.main-product.blocks.text.settings.text_style.label"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "t:sections.main-product.blocks.title.name",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "t:sections.main-product.blocks.price.name",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "t:sections.main-product.blocks.description.name",
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product information"
+    }
+  ]
+}
+{% endschema %}
