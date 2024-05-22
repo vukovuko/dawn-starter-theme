@@ -33,8 +33,10 @@
       <div class="swiper product__swiper-main">
         <div class="swiper-wrapper">
           {%- capture sizes -%}
-            (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | divided_by: desktop_columns | round }}px, (min-width: 990px) calc({{ media_width | times: 100 | divided_by: desktop_columns }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / {{ mobile_columns }} - 4rem)
-          {%- endcapture -%}
+          (min-width: {{ settings.page_width }}px) calc(({{ settings.page_width }}px - 100px) * 1 / 3 - 8),
+          (min-width: 750px) calc((100vw - 100px) * 1 / 3 - 8),
+          calc(100vw - 30px)
+       {%- endcapture -%}
           {%- if product.selected_or_first_available_variant.featured_media != null -%}
             {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
             <div class="swiper-slide product__slide">
