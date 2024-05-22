@@ -17,18 +17,36 @@
           "type": "description",
           "settings": {
           }
+        },
+        "price_cNhKdb": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "quantity_selector_kLY9qk": {
+          "type": "quantity_selector",
+          "settings": {
+          }
+        },
+        "buy_buttons_aTpEGJ": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
         }
       },
       "block_order": [
         "judge_me_reviews_preview_badge_aDiMxM",
         "title_TjYnE9",
-        "description_z9fNVg"
+        "description_z9fNVg",
+        "price_cNhKdb",
+        "quantity_selector_kLY9qk",
+        "buy_buttons_aTpEGJ"
       ],
       "settings": {
         "product": "",
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "color_scheme": ""
       }
     },
     "main": {
