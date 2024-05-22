@@ -18,21 +18,26 @@
           "settings": {
           }
         },
-        "price_cNhKdb": {
-          "type": "price",
+        "product_details_7gCnjp": {
+          "type": "product_details",
           "settings": {
+            "heading": "What's inside:",
+            "subheading": "1 X LOREM IPSUM DOLOR",
+            "description": "Donec sodales sagittis magna sed consequat, leo eget bibendum sodales"
+          }
+        },
+        "product_details_xNKa8X": {
+          "type": "product_details",
+          "settings": {
+            "heading": "",
+            "subheading": "1 X LOREM IPSUM DOLOR",
+            "description": "Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. "
           }
         },
         "quantity_selector_kLY9qk": {
           "type": "quantity_selector",
           "settings": {
-          }
-        },
-        "buy_buttons_aTpEGJ": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_add_to_cart": true
           }
         }
       },
@@ -40,13 +45,15 @@
         "judge_me_reviews_preview_badge_aDiMxM",
         "title_TjYnE9",
         "description_z9fNVg",
-        "price_cNhKdb",
-        "quantity_selector_kLY9qk",
-        "buy_buttons_aTpEGJ"
+        "product_details_7gCnjp",
+        "product_details_xNKa8X",
+        "quantity_selector_kLY9qk"
       ],
       "settings": {
         "product": "",
-        "color_scheme": ""
+        "color_scheme": "",
+        "monthly_installments": "4",
+        "free_shipping_price": "$65"
       }
     },
     "main": {
@@ -101,6 +108,7 @@
         "quantity_selector",
         "buy_buttons"
       ],
+      "disabled": true,
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "",
