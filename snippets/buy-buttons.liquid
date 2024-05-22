@@ -77,7 +77,7 @@
           -%}
           {% if section.settings.free_shipping_price != blank %}
             <p class="product__shipping-info u-hide-on-mobile">
-              {{ 'products.product.shipping_rules' | t: free_shipping_money: section.settings.free_shipping_price }}
+              {{ 'products.product.shipping_rules_html' | t: free_shipping_money: section.settings.free_shipping_price }}
             </p>
           {% endif %}
           <button
@@ -115,7 +115,7 @@
           {% endif %}
           {% if section.settings.free_shipping_price != blank %}
             <p class="product__shipping-info u-hide-on-desktop">
-              {{ 'products.product.shipping_rules' | t: free_shipping_money: section.settings.free_shipping_price }}
+              {{ 'products.product.shipping_rules_html' | t: free_shipping_money: section.settings.free_shipping_price }}
             </p>
           {% endif %}
           {%- if show_dynamic_checkout -%}

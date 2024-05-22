@@ -1,4 +1,21 @@
 {{ 'section-product-information.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+{% unless product.has_only_default_variant %}
+  {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{% endunless %}
+{%- if product.quantity_price_breaks_configured? -%}
+  {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- if product.quantity_price_breaks_configured? -%}
+  <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 <script src="{{ 'product-slider.js' | asset_url }}" defer="defer"></script>
 
 {% assign product = product %}
@@ -90,6 +107,27 @@
           {%- case block.type -%}
             {%- when '@app' -%}
               {% render block %}
+            {%- when 'product_details' -%}
+              <div class="product-details">
+                {% if block.settings.heading != blank %}
+                  <div class="product-details__heading">
+                    <p>
+                      {{ block.settings.heading }}
+                    </p>
+                  </div>
+                {% endif %}
+                <div class="product-details__item">
+                  <span class="product-details__icon">
+                    {% render 'icon-golden-checkmark' %}
+                  </span>
+                  {% if block.settings.subheading != blank or block.settings.description != blank %}
+                    <div class="product-details__content">
+                      <p class="product-details__title">{{ block.settings.subheading }}</p>
+                      <p class="product-details__description">{{ block.settings.description }}</p>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
             {%- when 'text' -%}
               <p
                 class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
@@ -105,35 +143,6 @@
                     {{ product.title | escape }}
                   </h2>
                 </a>
-              </div>
-            {%- when 'price' -%}
-              <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                {%- render 'price',
-                  product: product,
-                  use_variant: true,
-                  show_badges: true,
-                  price_class: 'price--large'
-                -%}
-              </div>
-              {%- if product.quantity_price_breaks_configured? -%}
-                <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
-                  <span>{{ 'products.product.volume_pricing.note' | t }}</span>
-                </div>
-              {%- endif -%}
-              <div class="product__tax caption rte">
-                {%- if cart.taxes_included -%}
-                  {{ 'products.product.include_taxes' | t }}
-                {%- endif -%}
-                {%- if shop.shipping_policy.body != blank -%}
-                  {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                {%- endif -%}
-              </div>
-              <div {{ block.shopify_attributes }}>
-                {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
-                {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                  {{ form | payment_terms }}
-                {%- endform -%}
               </div>
             {%- when 'description' -%}
               {%- if product.description != blank -%}
@@ -446,6 +455,29 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "product_details",
+      "name": "Product details",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "subheading",
+          "default": "Text block",
+          "label": "Subheading"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "description",
+          "default": "Text block",
+          "label": "Description"
+        }
+      ]
     },
     {
       "type": "text",

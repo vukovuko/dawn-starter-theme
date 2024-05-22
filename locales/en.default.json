@@ -176,7 +176,7 @@
       "xr_button_label": "View in your space, loads item in augmented reality window",
       "include_taxes": "Tax included.",
       "shipping_policy_html": "<a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
-      "shipping_rules": "Free US Shipping over {{ free_shipping_money }} | Free US Returns",
+      "shipping_rules_html": "Free US Shipping over {{ free_shipping_money }} <span class=\"product__vertical-line\"> </span> Free US Returns",
       "installments_html": "{{ monthly_installments }} interest-free installments of {{ amount }} with "
     },
     "modal": {

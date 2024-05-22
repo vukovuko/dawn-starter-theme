@@ -1,7 +1,7 @@
 var swiperThumbs = new Swiper('.product__swiper--thumbs', {
   loop: true,
-  spaceBetween: 10,
-  slidesPerView: 5,
+  spaceBetween: 16,
+  slidesPerView: 6.5,
   freeMode: true,
   watchSlidesProgress: true,
 });
