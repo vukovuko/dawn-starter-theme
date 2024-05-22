@@ -34,22 +34,10 @@
             "description": "Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. "
           }
         },
-        "price_cNhKdb": {
-          "type": "price",
-          "settings": {
-          }
-        },
         "quantity_selector_kLY9qk": {
           "type": "quantity_selector",
           "settings": {
             "show_add_to_cart": true
-          }
-        },
-        "buy_buttons_aTpEGJ": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
           }
         }
       },
@@ -59,9 +47,7 @@
         "description_z9fNVg",
         "product_details_7gCnjp",
         "product_details_xNKa8X",
-        "price_cNhKdb",
-        "quantity_selector_kLY9qk",
-        "buy_buttons_aTpEGJ"
+        "quantity_selector_kLY9qk"
       ],
       "settings": {
         "product": "",
