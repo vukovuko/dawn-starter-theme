@@ -60,26 +60,6 @@ if (!customElements.get('product-info')) {
         publish(PUB_SUB_EVENTS.quantityUpdate, undefined);
       }
 
-      fetchQuantityRules() {
-        if (!this.currentVariant || !this.currentVariant.value) return;
-        this.querySelector('.quantity__rules-cart .loading__spinner').classList.remove('hidden');
-        fetch(`${this.dataset.url}?variant=${this.currentVariant.value}&section_id=${this.dataset.section}`)
-          .then((response) => {
-            return response.text();
-          })
-          .then((responseText) => {
-            const html = new DOMParser().parseFromString(responseText, 'text/html');
-            this.updateQuantityRules(this.dataset.section, html);
-            this.setQuantityBoundries();
-          })
-          .catch((e) => {
-            console.error(e);
-          })
-          .finally(() => {
-            this.querySelector('.quantity__rules-cart .loading__spinner').classList.add('hidden');
-          });
-      }
-
       updateQuantityRules(sectionId, html) {
         const quantityFormUpdated = html.getElementById(`Quantity-Form-${sectionId}`);
         const selectors = ['.quantity__input', '.quantity__rules', '.quantity__label'];

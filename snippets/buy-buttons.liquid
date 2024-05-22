@@ -75,6 +75,11 @@
               assign quantity_rule_soldout = true
             endif
           -%}
+          {% if section.settings.free_shipping_price != blank %}
+            <p class="product__shipping-info u-hide-on-mobile">
+              {{ 'products.product.shipping_rules' | t: free_shipping_money: section.settings.free_shipping_price }}
+            </p>
+          {% endif %}
           <button
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
@@ -84,15 +89,35 @@
               disabled
             {% endif %}
           >
-            <span>
+            <span class="product__price">
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
               {%- else -%}
                 {{ 'products.product.add_to_cart' | t }}
               {%- endif -%}
+              -
+              {%- render 'price',
+                product: product,
+                use_variant: true,
+                show_badges: false,
+                price_class: 'price--large'
+              -%}
             </span>
             {%- render 'loading-spinner' -%}
           </button>
+          {% if section.settings.monthly_installments %}
+            <p class="product__installments-info">
+              {% assign monthly_installments = section.settings.monthly_installments | times: 1 %}
+              {% assign amount = product.selected_or_first_available_variant.price | divided_by: monthly_installments | money %}
+              {{ 'products.product.installments_html' | t: monthly_installments: monthly_installments, amount: amount }}
+              {% render 'icon-shop-pay' %}
+            </p>
+          {% endif %}
+          {% if section.settings.free_shipping_price != blank %}
+            <p class="product__shipping-info u-hide-on-desktop">
+              {{ 'products.product.shipping_rules' | t: free_shipping_money: section.settings.free_shipping_price }}
+            </p>
+          {% endif %}
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}

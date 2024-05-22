@@ -177,10 +177,6 @@
   max-width: 100%;
 }
 
-.product-form__submit {
-  margin-bottom: 1rem;
-}
-
 .product-form__submit[aria-disabled='true'] + .shopify-payment-button .shopify-payment-button__button[disabled],
 .product-form__submit[disabled] + .shopify-payment-button .shopify-payment-button__button[disabled] {
   cursor: not-allowed;
@@ -259,10 +255,6 @@ a.product__text {
 }
 
 .product .price .badge {
-  margin-bottom: 0.5rem;
-}
-
-.product .price__container {
   margin-bottom: 0.5rem;
 }
 
@@ -349,10 +341,6 @@ a.product__text {
 
 .product-form__quantity-top .form__label {
   margin-bottom: 1.2rem;
-}
-
-.product-form__buttons {
-  max-width: 44rem;
 }
 
 .product--no-media .product__info-container > modal-opener {
