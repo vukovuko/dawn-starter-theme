@@ -1,7 +1,7 @@
 {
   "editor.formatOnSave": false,
   "[javascript]": {
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[css]": {
@@ -9,7 +9,7 @@
   },
   "[liquid]": {
     "editor.defaultFormatter": "Shopify.theme-check-vscode",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
   },
   "themeCheck.checkOnSave": true
 }
