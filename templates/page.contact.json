@@ -19,6 +19,29 @@
     },
     "product_information_dn9heV": {
       "type": "product-information",
+      "blocks": {
+        "title_jVKGx3": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "description_R3U3ak": {
+          "type": "description",
+          "settings": {
+          }
+        },
+        "quantity_selector_7eNQxU": {
+          "type": "quantity_selector",
+          "settings": {
+            "show_add_to_cart": true
+          }
+        }
+      },
+      "block_order": [
+        "title_jVKGx3",
+        "description_R3U3ak",
+        "quantity_selector_7eNQxU"
+      ],
       "settings": {
         "product": "the-multi-managed-snowboard",
         "color_scheme": "",
