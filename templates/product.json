@@ -18,6 +18,22 @@
           "settings": {
           }
         },
+        "product_details_7gCnjp": {
+          "type": "product_details",
+          "settings": {
+            "heading": "What's inside:",
+            "subheading": "1 X LOREM IPSUM DOLOR",
+            "description": "Donec sodales sagittis magna sed consequat, leo eget bibendum sodales"
+          }
+        },
+        "product_details_xNKa8X": {
+          "type": "product_details",
+          "settings": {
+            "heading": "",
+            "subheading": "1 X LOREM IPSUM DOLOR",
+            "description": "Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. "
+          }
+        },
         "price_cNhKdb": {
           "type": "price",
           "settings": {
@@ -26,6 +42,7 @@
         "quantity_selector_kLY9qk": {
           "type": "quantity_selector",
           "settings": {
+            "show_add_to_cart": true
           }
         },
         "buy_buttons_aTpEGJ": {
@@ -40,13 +57,17 @@
         "judge_me_reviews_preview_badge_aDiMxM",
         "title_TjYnE9",
         "description_z9fNVg",
+        "product_details_7gCnjp",
+        "product_details_xNKa8X",
         "price_cNhKdb",
         "quantity_selector_kLY9qk",
         "buy_buttons_aTpEGJ"
       ],
       "settings": {
         "product": "",
-        "color_scheme": ""
+        "color_scheme": "",
+        "monthly_installments": "4",
+        "free_shipping_price": "$65"
       }
     },
     "main": {
