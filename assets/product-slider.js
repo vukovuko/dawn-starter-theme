@@ -1,9 +1,14 @@
 var swiperThumbs = new Swiper('.product__swiper--thumbs', {
   loop: true,
-  spaceBetween: 16,
+  spaceBetween: 8.5,
   slidesPerView: 7.5,
   freeMode: true,
   watchSlidesProgress: true,
+  breakpoints: {
+    1150: {
+      spaceBetween: 16
+    }
+  }
 });
 
 var swiperMain = new Swiper('.product__swiper-main', {

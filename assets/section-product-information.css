@@ -199,6 +199,23 @@
   list-style: none;
 }
 
+.product__swiper--thumbs {
+  position: relative;
+}
+
+.product__swiper--thumbs::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 11px;
+  background: linear-gradient(270deg, #FCF4EE 0%, rgba(252, 244, 238, 0) 95.45%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+
 @media screen and (max-width: 1150px) {
   .product {
     padding: 48px 20px;
