@@ -34,6 +34,11 @@
             "description": "Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. "
           }
         },
+        "variant_picker_EMK4CR": {
+          "type": "variant_picker",
+          "settings": {
+          }
+        },
         "quantity_selector_kLY9qk": {
           "type": "quantity_selector",
           "settings": {
@@ -57,6 +62,7 @@
         "description_z9fNVg",
         "product_details_7gCnjp",
         "product_details_xNKa8X",
+        "variant_picker_EMK4CR",
         "quantity_selector_kLY9qk",
         "icons_b6GXn4"
       ],
