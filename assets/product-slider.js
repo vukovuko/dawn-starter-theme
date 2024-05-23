@@ -1,7 +1,7 @@
 var swiperThumbs = new Swiper('.product__swiper--thumbs', {
   loop: true,
   spaceBetween: 16,
-  slidesPerView: 6.5,
+  slidesPerView: 7.5,
   freeMode: true,
   watchSlidesProgress: true,
 });
@@ -73,21 +73,16 @@ function updatePrice(selectedValue) {
 }
 
 function updateProductImages(selectedVariant) {
-  const productMedia = document.querySelectorAll('.product__media-item');
+  const productMedia = document.querySelectorAll('.swiper-slide');
   const variantImageId = selectedVariant.featured_media ? selectedVariant.featured_media.id : null;
-
-  productMedia.forEach(mediaItem => {
-    const mediaId = parseInt(mediaItem.getAttribute('data-media-id').split('-').pop(), 10);
+  let mediaIndex = -1;
+  productMedia.forEach((mediaItem, index) => {
+    const mediaId = parseInt(mediaItem.getAttribute('data-media-id'));
     if (mediaId === variantImageId) {
-      mediaItem.classList.add('is-active');
-    } else {
-      mediaItem.classList.remove('is-active');
+      mediaIndex = parseInt(mediaItem.getAttribute('data-swiper-slide-index'));
     }
   });
-
-  const swiperMain = document.querySelector('.product__swiper-main').swiper;
-  const newSlideIndex = Array.from(productMedia).findIndex(mediaItem => mediaItem.classList.contains('is-active'));
-  if (swiperMain && newSlideIndex !== -1) {
-    swiperMain.slideTo(newSlideIndex);
+  if (!isNaN(mediaIndex) && mediaIndex !== -1) {
+    swiperMain.slideTo(mediaIndex);
   }
 }
