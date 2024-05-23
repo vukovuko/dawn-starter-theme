@@ -219,6 +219,10 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+
+  .product__gallery, .product__details {
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: 750px) {

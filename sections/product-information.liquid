@@ -130,7 +130,24 @@
                   {% endif %}
                 </div>
               </div>
-            {% when 'icons' %}
+            {%- when 'variant_picker' -%}
+              <div class="variant-picker" data-url="{{ product.url }}" data-section="{{ section.id }}">
+                {%- for option in product.options_with_values -%}
+                  <div class="js product-form__input product-form__input--pill variant-picker__option-group">
+                    <legend class="form__label">{{ option.name }}</legend>
+                    {% render 'product-variant-options',
+                      product: product,
+                      option: option,
+                      block: block,
+                      picker_type: "button"
+                    %}
+                  </div>
+                {%- endfor -%}
+                <script data-product-variants type="application/json">
+                  {{ product.variants | json }}
+                </script>
+              </div>
+            {%- when 'icons' -%}
               <div class="product-features">
                 <ul class="product-features__list">
                   {% capture sizes %}
@@ -579,6 +596,11 @@
           "id": "fifth_image"
         }
       ]
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 1
     },
     {
       "type": "text",
