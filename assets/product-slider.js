@@ -46,6 +46,7 @@ function updateVariant(selectedValue) {
   const selectedVariant = productVariants.find(variant => variant.options.includes(selectedValue));
   if (selectedVariant) {
     variantInput.value = selectedVariant.id;
+    updateProductImages(selectedVariant);
   }
 }
 
@@ -69,4 +70,24 @@ function updatePrice(selectedValue) {
   .catch((error) => {
     console.error('Error updating price:', error);
   });
+}
+
+function updateProductImages(selectedVariant) {
+  const productMedia = document.querySelectorAll('.product__media-item');
+  const variantImageId = selectedVariant.featured_media ? selectedVariant.featured_media.id : null;
+
+  productMedia.forEach(mediaItem => {
+    const mediaId = parseInt(mediaItem.getAttribute('data-media-id').split('-').pop(), 10);
+    if (mediaId === variantImageId) {
+      mediaItem.classList.add('is-active');
+    } else {
+      mediaItem.classList.remove('is-active');
+    }
+  });
+
+  const swiperMain = document.querySelector('.product__swiper-main').swiper;
+  const newSlideIndex = Array.from(productMedia).findIndex(mediaItem => mediaItem.classList.contains('is-active'));
+  if (swiperMain && newSlideIndex !== -1) {
+    swiperMain.slideTo(newSlideIndex);
+  }
 }

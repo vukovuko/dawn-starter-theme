@@ -39,7 +39,7 @@
        {%- endcapture -%}
           {%- if product.selected_or_first_available_variant.featured_media != null -%}
             {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
-            <div class="swiper-slide product__slide">
+            <div class="swiper-slide product__slide" data-media-id="{{ section.id }}-{{ featured_media.id }}">
               {{
                 featured_media.preview_image
                 | image_url: width: 1946
@@ -52,7 +52,7 @@
           {%- endif -%}
           {%- for media in product.media -%}
             {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
-              <div class="swiper-slide product__slide">
+              <div class="swiper-slide product__slide" data-media-id="{{ section.id }}-{{ featured_media.id }}">
                 {{
                   media.preview_image
                   | image_url: width: 1946
@@ -131,22 +131,24 @@
                 </div>
               </div>
             {%- when 'variant_picker' -%}
-              <div class="variant-picker" data-url="{{ product.url }}" data-section="{{ section.id }}">
-                {%- for option in product.options_with_values -%}
-                  <div class="js product-form__input product-form__input--pill variant-picker__option-group">
-                    <legend class="form__label">{{ option.name }}</legend>
-                    {% render 'product-variant-options',
-                      product: product,
-                      option: option,
-                      block: block,
-                      picker_type: "button"
-                    %}
-                  </div>
-                {%- endfor -%}
-                <script data-product-variants type="application/json">
-                  {{ product.variants | json }}
-                </script>
-              </div>
+              {%- unless product.has_only_default_variant -%}
+                <div class="variant-picker" data-url="{{ product.url }}" data-section="{{ section.id }}">
+                  {%- for option in product.options_with_values -%}
+                    <div class="js product-form__input product-form__input--pill variant-picker__option-group">
+                      <legend class="form__label">{{ option.name }}</legend>
+                      {% render 'product-variant-options',
+                        product: product,
+                        option: option,
+                        block: block,
+                        picker_type: "button"
+                      %}
+                    </div>
+                  {%- endfor -%}
+                  <script data-product-variants type="application/json">
+                    {{ product.variants | json }}
+                  </script>
+                </div>
+              {% endunless %}
             {%- when 'icons' -%}
               <div class="product-features">
                 <ul class="product-features__list">
