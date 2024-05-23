@@ -68,7 +68,7 @@
   line-height: 41.6px;
 }
 
-.product__description p {
+.product__description {
   font-size: 16px;
   line-height: 24px;
   color: rgba(var(--color-foreground));
