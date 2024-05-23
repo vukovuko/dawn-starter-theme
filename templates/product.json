@@ -39,6 +39,16 @@
           "settings": {
             "show_add_to_cart": true
           }
+        },
+        "icons_b6GXn4": {
+          "type": "icons",
+          "settings": {
+            "first_image": "shopify:\/\/shop_images\/1.png",
+            "second_image": "shopify:\/\/shop_images\/2.png",
+            "third_image": "shopify:\/\/shop_images\/3.png",
+            "fourth_image": "shopify:\/\/shop_images\/4.png",
+            "fifth_image": "shopify:\/\/shop_images\/5.png"
+          }
         }
       },
       "block_order": [
@@ -47,7 +57,8 @@
         "description_z9fNVg",
         "product_details_7gCnjp",
         "product_details_xNKa8X",
-        "quantity_selector_kLY9qk"
+        "quantity_selector_kLY9qk",
+        "icons_b6GXn4"
       ],
       "settings": {
         "product": "",
